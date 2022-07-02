@@ -18,9 +18,9 @@ const menuItems = [
     label: <Link to="/">Home</Link>,
   },
   {
-    key: "/cryptocurrencies",
+    key: "/cryptocurrency",
     icon: <FundOutlined />,
-    label: <Link to="/cryptocurrencies">Cryptocurrencies</Link>,
+    label: <Link to="/cryptocurrency">Crypto currency</Link>,
   },
   {
     key: "/exchanges",
