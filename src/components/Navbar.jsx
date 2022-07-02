@@ -6,9 +6,10 @@ import {
   MoneyCollectOutlined,
   BulbOutlined,
   MenuOutlined,
+  FundOutlined,
 } from "@ant-design/icons";
 
-import icon from "../images/633px-Cryptocurrency_Logo.svg.png";
+import icon from "../images/cryptocurrency.png";
 
 const Navbar = () => {
   return (
@@ -16,10 +17,23 @@ const Navbar = () => {
       <div className="logo-container">
         <Avatar src={icon} size="large" />
         <Typography.Title level={2} className="logo">
-          <Link to="/"> Crypto Hub</Link>
+          <Link to="/">Crypto Hub</Link>
         </Typography.Title>
-        {/* <Button ClassName="menu-control-container"></Button> */}
       </div>
+      <Menu theme="dark">
+        <Menu.Item icon={<HomeOutlined />} key="/">
+          <Link to="/">Home</Link>
+        </Menu.Item>
+        <Menu.Item icon={<FundOutlined />} key="/cryptocurrencies">
+          <Link to="/cryptocurrencies">Cryptocurrencies</Link>
+        </Menu.Item>
+        <Menu.Item icon={<MoneyCollectOutlined />} key="/exchanges">
+          <Link to="/exchanges">Exchanges</Link>
+        </Menu.Item>
+        <Menu.Item icon={<BulbOutlined />} key="/news">
+          <Link to="/news">News</Link>
+        </Menu.Item>
+      </Menu>
     </div>
   );
 };
