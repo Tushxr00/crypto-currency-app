@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import { Layout, Space, Typography } from "antd";
-import Navbar from "./components/Navbar";
+import { Navbar } from "./components";
 
 const App = () => {
   return (
