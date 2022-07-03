@@ -7,8 +7,8 @@ import { useGetCryptosQuery } from "../services/cryptoApi";
 const HomePage = () => {
   const { data, isFetching } = useGetCryptosQuery();
 
-  console.log({ data });
-  console.log({ isFetching });
+  const globalStats = data?.data?.stats;
+  if (isFetching) return "Loading...";
 
   return (
     <div>
@@ -17,19 +17,31 @@ const HomePage = () => {
       </Typography.Title>
       <Row>
         <Col span={12}>
-          <Statistic title="Total Cryptocurrencies" value={5} />
+          <Statistic
+            title="Total Cryptocurrencies"
+            value={globalStats.totalCoins}
+          />
         </Col>
         <Col span={12}>
-          <Statistic title="Total Exchanges" value={5} />
+          <Statistic
+            title="Total Exchanges"
+            value={globalStats.totalExchanges}
+          />
         </Col>
         <Col span={12}>
-          <Statistic title="Total Market Cap" value={5} />
+          <Statistic
+            title="Total Market Cap"
+            value={globalStats.totalMarketCap}
+          />
         </Col>
         <Col span={12}>
-          <Statistic title="Total 24h Volume" value={5} />
+          <Statistic
+            title="Total 24h Volume"
+            value={globalStats.total24hVolume}
+          />
         </Col>
         <Col span={12}>
-          <Statistic title="Total Market" value={5} />
+          <Statistic title="Total Market" value={globalStats.totalMarkets} />
         </Col>
       </Row>
     </div>
