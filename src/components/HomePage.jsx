@@ -5,11 +5,10 @@ import { Link } from "react-router-dom";
 import { useGetCryptosQuery } from "../services/cryptoApi";
 
 const HomePage = () => {
-  const x = useGetCryptosQuery();
+  const { data, isFetching } = useGetCryptosQuery();
 
-  console.log({ x });
-  //   console.log({ data });
-  //   console.log({ isFetching });
+  console.log({ data });
+  console.log({ isFetching });
 
   return (
     <div>
