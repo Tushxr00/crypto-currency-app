@@ -1,11 +1,10 @@
 import React from "react";
-import { Button, Menu, Typography, Avatar } from "antd";
+import {  Menu, Typography, Avatar } from "antd";
 import { Link } from "react-router-dom";
 import {
   HomeOutlined,
   MoneyCollectOutlined,
   BulbOutlined,
-  MenuOutlined,
   FundOutlined,
 } from "@ant-design/icons";
 
