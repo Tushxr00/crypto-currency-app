@@ -24,7 +24,7 @@ const News = (props) => {
   }, [newsData]);
 
   if (!newsData) return "Loading ...";
-
+  console.log({ newList });
   return (
     <Row gutter={[24, 24]}>
       {!props.simplified && (
@@ -40,8 +40,10 @@ const News = (props) => {
             }
           >
             <Select.Option value="Cryptocurrency">Cryptocurrency</Select.Option>
-            {coinList.map((coin) => (
-              <Select.Option value={coin.name}>{coin.name}</Select.Option>
+            {coinList?.map((coin) => (
+              <Select.Option key={coin.name} value={coin.name}>
+                {coin.name}
+              </Select.Option>
             ))}
           </Select>
         </Col>
@@ -86,6 +88,46 @@ const News = (props) => {
           </Card>
         </Col>
       ))}
+      {newList?.length === 0 && (
+        <Col>
+          <Card hoverable className="news-card">
+            <a href={news.url} target="_blank" rel="noreferrer">
+              <div className="news-image-container">
+                <Typography.Title className="news-title" level={4}>
+                  {news.name}
+                </Typography.Title>
+                <img
+                  src={news?.image?.thumbnail?.contentUrl || demoImage}
+                  alt={news.name}
+                  className="news-image"
+                />
+              </div>
+              <p>
+                {news.description > 100
+                  ? `${news.description.substring(0, 100)} ...`
+                  : `${news.description}`}
+              </p>
+              <div className="provider-container">
+                <div>
+                  <Avatar
+                    src={
+                      news.provider[0]?.image?.thumbnail?.contentUrl ||
+                      demoImage
+                    }
+                    alt={news.provider[0]?.name}
+                  />
+                  <Typography.Text className="provider-name">
+                    {news.provider[0]?.name}
+                  </Typography.Text>
+                </div>
+                <Typography.Text>
+                  {moment(news.datePublished).startOf(`ss`).fromNow()}
+                </Typography.Text>
+              </div>
+            </a>
+          </Card>
+        </Col>
+      )}
     </Row>
   );
 };
