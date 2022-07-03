@@ -3,6 +3,7 @@ import React from "react";
 import { Typography, Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import { Cryptocurrency, News } from "../components";
 
 const HomePage = () => {
   const { data, isFetching } = useGetCryptosQuery();
@@ -11,7 +12,7 @@ const HomePage = () => {
   if (isFetching) return "Loading...";
 
   return (
-    <div>
+    <React.Fragment>
       <Typography.Title level={2} className="heading">
         Global Crypto Stats
       </Typography.Title>
@@ -47,7 +48,25 @@ const HomePage = () => {
           />
         </Col>
       </Row>
-    </div>
+      <div className="home-heading-container">
+        <Typography.Title level={2} className="home-title">
+          Top 10 Cryptocurrencies in the World
+        </Typography.Title>
+        <Typography.Title level={3} className="show-more">
+          <Link to="/cryptocurrency"> Show More</Link>
+        </Typography.Title>
+      </div>
+      <Cryptocurrency simplified />
+      <div className="home-heading-container">
+        <Typography.Title level={2} className="home-title">
+          Latest Crypto News
+        </Typography.Title>
+        <Typography.Title level={3} className="show-more">
+          <Link to="/cryptocurrency"> Show More</Link>
+        </Typography.Title>
+      </div>
+      <News simplified />
+    </React.Fragment>
   );
 };
 
