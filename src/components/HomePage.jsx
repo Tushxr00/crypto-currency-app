@@ -6,7 +6,7 @@ import { useGetCryptosQuery } from "../services/cryptoApi";
 import { Cryptocurrency, News } from "../components";
 
 const HomePage = () => {
-  const { data, isFetching } = useGetCryptosQuery(10);
+  const { data, isFetching } = useGetCryptosQuery(12);
 
   const globalStats = data?.data?.stats;
   if (isFetching) return "Loading...";
