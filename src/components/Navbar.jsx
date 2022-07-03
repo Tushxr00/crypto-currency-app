@@ -43,7 +43,7 @@ const Navbar = () => {
           <Link to="/">Crypto Hub</Link>
         </Typography.Title>
       </div>
-      <Menu items={menuItems} />
+      <Menu theme="dark" items={menuItems} />
     </div>
   );
 };
