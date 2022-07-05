@@ -14,12 +14,21 @@ import {
   NumberOutlined,
   ThunderboltOutlined,
 } from "@ant-design/icons";
-import { useGetCryptoDetailQuery } from "../services/cryptoApi";
+
+import {
+  useGetCryptoDetailQuery,
+  useGetCryptoHistoryQuery,
+} from "../services/cryptoApi";
+import LineChart from "./LineChart";
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
-  const { timePeriod, setTimePeriod } = useState("7d");
+  const [timePeriod, setTimePeriod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailQuery(coinId);
+  const { data: coinHistory } = useGetCryptoHistoryQuery({
+    coinId,
+    timePeriod,
+  });
 
   const cryptoDetails = data?.data?.coin;
 
@@ -93,8 +102,8 @@ const CryptoDetails = () => {
     },
   ];
 
-  console.log({ cryptoDetails });
   if (!cryptoDetails) return "Loading ...";
+
   return (
     <Col className="coin-detail-container">
       <Col className="coin-heading-container">
@@ -116,7 +125,11 @@ const CryptoDetails = () => {
           <Select.Option key={date}>{date}</Select.Option>
         ))}
       </Select>
-      {/* line chart */}
+      <LineChart
+        coinHistory={coinHistory}
+        currentPrice={millify(cryptoDetails.price)}
+        coinName={cryptoDetails.name}
+      />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value=statistic-heading">
@@ -165,7 +178,7 @@ const CryptoDetails = () => {
             {cryptoDetails.name} Links
           </Typography.Title>
           {cryptoDetails.links.map((link) => (
-            <Row className="coin-link" key={link.name}>
+            <Row className="coin-link" key={link.url}>
               <Typography.Title level={5} className="link-name">
                 {link.type}
               </Typography.Title>

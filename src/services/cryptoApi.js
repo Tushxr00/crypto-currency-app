@@ -7,13 +7,21 @@ const cryptoHeaders = {
 
 const baseUrl = "https://coinranking1.p.rapidapi.com";
 
-const createRequest = (url, count) => {
+const createRequest = (url, count, timePeriod) => {
   if (count) {
     return {
       url,
       headers: cryptoHeaders,
       params: {
         limit: count,
+      },
+    };
+  } else if (timePeriod) {
+    return {
+      url,
+      headers: cryptoHeaders,
+      params: {
+        timePeriod: timePeriod,
       },
     };
   } else {
@@ -32,9 +40,17 @@ export const cryptoApi = createApi({
       query: (count) => createRequest(`${baseUrl}/coins`, count),
     }),
     getCryptoDetail: builder.query({
-      query: (id) => createRequest(`${baseUrl}/coin/${id}`),
+      query: (coinId) => createRequest(`${baseUrl}/coin/${coinId}`),
+    }),
+    getCryptoHistory: builder.query({
+      query: ({ coinId, timePeriod }) =>
+        createRequest(`${baseUrl}/coin/${coinId}/history`, 0, timePeriod),
     }),
   }),
 });
 
-export const { useGetCryptosQuery, useGetCryptoDetailQuery } = cryptoApi;
+export const {
+  useGetCryptosQuery,
+  useGetCryptoDetailQuery,
+  useGetCryptoHistoryQuery,
+} = cryptoApi;
