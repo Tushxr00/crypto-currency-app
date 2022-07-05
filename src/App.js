@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link, Navigate } from "react-router-dom";
 import { Layout, Space, Typography } from "antd";
 import {
   Navbar,
@@ -26,6 +26,7 @@ const App = () => {
               <Route path="/crypto/:coinId" element={<CryptoDetails />} />
               <Route path="/exchanges" element={<Exchanges />} />
               <Route path="/news" element={<News />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
         </Layout>
@@ -39,8 +40,35 @@ const App = () => {
           </Typography.Title>
           <Space>
             <Link to="/">Home</Link>
+            <span
+              style={{
+                color: "white",
+                textAlign: "center",
+                pointerEvents: "none",
+              }}
+            >
+              |
+            </span>
             <Link to="/cryptocurrency">Crypto currency</Link>
+            <span
+              style={{
+                color: "white",
+                textAlign: "center",
+                pointerEvents: "none",
+              }}
+            >
+              |
+            </span>
             <Link to="/exchanges">Exchanges</Link>
+            <span
+              style={{
+                color: "white",
+                textAlign: "center",
+                pointerEvents: "none",
+              }}
+            >
+              |
+            </span>
             <Link to="/news">News</Link>
           </Space>
         </div>
@@ -50,4 +78,3 @@ const App = () => {
 };
 
 export default App;
-
