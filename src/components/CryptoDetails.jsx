@@ -14,12 +14,12 @@ import {
   NumberOutlined,
   ThunderboltOutlined,
 } from "@ant-design/icons";
-
 import {
   useGetCryptoDetailQuery,
   useGetCryptoHistoryQuery,
 } from "../services/cryptoApi";
 import LineChart from "./LineChart";
+import Loader from "./Loader";
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
@@ -102,7 +102,7 @@ const CryptoDetails = () => {
     },
   ];
 
-  if (!cryptoDetails) return "Loading ...";
+  if (!cryptoDetails) return <Loader />;
 
   return (
     <Col className="coin-detail-container">

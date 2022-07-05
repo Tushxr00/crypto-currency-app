@@ -2,6 +2,7 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { Typography, Row, Col } from "antd";
+import Loader from "./Loader";
 
 const LineChart = (props) => {
   const coinPrice = [];
@@ -45,7 +46,7 @@ const LineChart = (props) => {
     },
   };
 
-  if (!props.coinHistory) return "loading...";
+  if (!props.coinHistory) return <Loader />;
 
   return (
     <React.Fragment>

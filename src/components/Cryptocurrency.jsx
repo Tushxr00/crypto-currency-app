@@ -3,6 +3,7 @@ import millify from "millify";
 import { Link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import Loader from "./Loader";
 
 const Cryptocurrency = (props) => {
   const count = props.simplified ? 12 : 100;
@@ -18,7 +19,7 @@ const Cryptocurrency = (props) => {
     setCryptos(filteredData);
   }, [coinList, searchTerm]);
 
-  if (!cryptos) return "Loading ...";
+  if (!cryptos) return <Loader />;
 
   return (
     <React.Fragment>

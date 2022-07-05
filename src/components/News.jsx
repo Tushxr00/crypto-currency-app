@@ -3,6 +3,7 @@ import { Button, Select, Typography, Row, Col, Avatar, Card } from "antd";
 import moment from "moment";
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import Loader from "./Loader";
 
 const News = (props) => {
   const demoImage =
@@ -36,7 +37,7 @@ const News = (props) => {
     setNewList(newsData);
   }, [newsData]);
 
-  if (!newsData) return "Loading ...";
+  if (!newsData) return <Loader />;
 
   return (
     <React.Fragment>
