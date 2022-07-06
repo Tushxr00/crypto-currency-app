@@ -35,7 +35,7 @@ const menuItems = [
 ];
 
 const Navbar = () => {
-  const [activeMenu, setActiveMenu] = useState(true);
+  const [activeMenu, setActiveMenu] = useState(false);
   const [screenSize, setScreenSize] = useState(null);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (screenSize < 768) {
+    if (screenSize < 801) {
       setActiveMenu(false);
     } else {
       setActiveMenu(true);
