@@ -27,7 +27,7 @@ const Cryptocurrency = (props) => {
         <div className="search-crypto">
           <Input
             placeholder="Search Crypto currency"
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
           />
         </div>
       )}

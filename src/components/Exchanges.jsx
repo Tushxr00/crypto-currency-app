@@ -51,7 +51,7 @@ const Exchanges = () => {
     }
   }, [cryptosList]);
 
-  const { data, isFetching } = useGetExchangesQuery(coinId);
+  const { data } = useGetExchangesQuery(coinId);
   const exchangesList = data?.data?.exchanges;
   const exchangesData = data?.data?.exchanges.map((exchange) => ({
     exchange: { name: exchange.name, iconUrl: exchange.iconUrl },

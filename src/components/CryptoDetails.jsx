@@ -24,7 +24,7 @@ import Loader from "./Loader";
 const CryptoDetails = () => {
   const { coinId } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
-  const { data, isFetching } = useGetCryptoDetailQuery(coinId);
+  const { data } = useGetCryptoDetailQuery(coinId);
   const { data: coinHistory } = useGetCryptoHistoryQuery({
     coinId,
     timePeriod,
