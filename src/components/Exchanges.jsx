@@ -44,7 +44,6 @@ const Exchanges = () => {
   const [coinArray, setCoinArray] = useState([]);
   const [coinId, setCoinId] = useState("");
 
-  console.log({ cryptosList });
   useEffect(() => {
     if (cryptosList?.data) {
       setCoinArray(cryptosList.data.coins);
@@ -52,8 +51,6 @@ const Exchanges = () => {
     }
   }, [cryptosList]);
 
-  console.log({ coinArray });
-  console.log({ coinId });
   const { data, isFetching } = useGetExchangesQuery(coinId);
   const exchangesList = data?.data?.exchanges;
   const exchangesData = data?.data?.exchanges.map((exchange) => ({
@@ -62,8 +59,6 @@ const Exchanges = () => {
     market: exchange.numberOfMarkets,
     price: `${millify(Number(exchange.price))}`,
   }));
-  console.log({ exchangesData });
-  //   // Note: To access this endpoint you need premium plan
 
   if (!exchangesList) return <Loader />;
 
@@ -95,4 +90,3 @@ const Exchanges = () => {
 };
 
 export default Exchanges;
-
