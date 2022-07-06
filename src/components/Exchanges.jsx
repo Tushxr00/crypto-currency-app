@@ -7,7 +7,6 @@ import {
   useGetExchangesQuery,
   useGetCryptosQuery,
 } from "../services/cryptoApi";
-const { Text } = Typography;
 
 const columns = [
   {
@@ -97,4 +96,3 @@ const Exchanges = () => {
 
 export default Exchanges;
 
-// const App = () => <Table columns={columns} dataSource={data} />;
