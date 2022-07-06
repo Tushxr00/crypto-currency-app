@@ -1,56 +1,100 @@
-// import React from "react";
-// import millify from "millify";
-// import { Collapse, Row, Col, Typography, Avatar } from "antd";
-// import HTMLReactParser from "html-react-parser";
+import React, { useEffect, useState } from "react";
+import millify from "millify";
+import { Typography, Avatar, Select, Table } from "antd";
+import Loader from "./Loader";
 
-// import { useGetExchangesQuery } from "../services/cryptoApi";
-// import Loader from "./Loader";
+import {
+  useGetExchangesQuery,
+  useGetCryptosQuery,
+} from "../services/cryptoApi";
+const { Text } = Typography;
 
-// const { Text } = Typography;
-// const { Panel } = Collapse;
+const columns = [
+  {
+    title: "Exchange",
+    dataIndex: "exchange",
+    key: "exchange",
+    render: ({ iconUrl, name }) => (
+      <div>
+        <Avatar className="exchange-image" src={iconUrl} />
+        <Typography.Text>
+          <strong>{name}</strong>
+        </Typography.Text>
+      </div>
+    ),
+  },
+  {
+    title: "24h Trade Volume",
+    dataIndex: "volume",
+    key: "volume",
+  },
+  {
+    title: "Number Of Markets",
+    dataIndex: "market",
+    key: "market",
+  },
+  {
+    title: "Price",
+    key: "price",
+    dataIndex: "price",
+  },
+];
 
-// const Exchanges = () => {
-//   const { data, isFetching } = useGetExchangesQuery();
-//   // const exchangesList = data?.data?.exchanges;
-//   // Note: To access this endpoint you need premium plan
-//   if (isFetching) return <Loader />;
+const Exchanges = () => {
+  const { data: cryptosList } = useGetCryptosQuery(100);
+  const [coinArray, setCoinArray] = useState([]);
+  const [coinId, setCoinId] = useState("");
 
-//   return (
-//     <React.Fragment>
-//       <Row>
-//         <Col span={6}>Exchanges</Col>
-//         <Col span={6}>24h Trade Volume</Col>
-//         <Col span={6}>Markets</Col>
-//         <Col span={6}>Change</Col>
-//       </Row>
-//       <Row>
-//         {/* {exchangesList.map((exchange) => (
-//           <Col span={24}>
-//             <Collapse>
-//               <Panel
-//                 key={exchange.uuid}
-//                 showArrow={false}
-//                 header={(
-//                   <Row key={exchange.uuid}>
-//                     <Col span={6}>
-//                       <Text><strong>{exchange.rank}.</strong></Text>
-//                       <Avatar className="exchange-image" src={exchange.iconUrl} />
-//                       <Text><strong>{exchange.name}</strong></Text>
-//                     </Col>
-//                     <Col span={6}>${millify(exchange.volume)}</Col>
-//                     <Col span={6}>{millify(exchange.numberOfMarkets)}</Col>
-//                     <Col span={6}>{millify(exchange.marketShare)}%</Col>
-//                   </Row>
-//                   )}
-//               >
-//                 {HTMLReactParser(exchange.description || '')}
-//               </Panel>
-//             </Collapse>
-//           </Col>
-//         ))} */}
-//       </Row>
-//     </React.Fragment>
-//   );
-// };
+  console.log({ cryptosList });
+  useEffect(() => {
+    if (cryptosList?.data) {
+      setCoinArray(cryptosList.data.coins);
+      setCoinId(cryptosList.data.coins[0].uuid);
+    }
+  }, [cryptosList]);
 
-// export default Exchanges;
+  console.log({ coinArray });
+  console.log({ coinId });
+  const { data, isFetching } = useGetExchangesQuery(coinId);
+  const exchangesList = data?.data?.exchanges;
+  const exchangesData = data?.data?.exchanges.map((exchange) => ({
+    exchange: { name: exchange.name, iconUrl: exchange.iconUrl },
+    volume: `${millify(Number(exchange["24hVolume"]))}`,
+    market: exchange.numberOfMarkets,
+    price: `${millify(Number(exchange.price))}`,
+  }));
+  console.log({ exchangesData });
+  //   // Note: To access this endpoint you need premium plan
+
+  if (!exchangesList) return <Loader />;
+
+  return (
+    <React.Fragment>
+      <Typography.Title level={1}> Exchange Center </Typography.Title>
+      <Typography.Text>
+        Information about a specific coin on different exchange platforms
+      </Typography.Text>
+      <br />
+      <Select
+        defaultValue={coinArray[0].name}
+        className="select-timeperiod"
+        placeholder="Select Time Period"
+        onChange={(value) => setCoinId(value)}
+        style={{ marginBottom: "10px" }}
+      >
+        {coinArray?.map((data) => {
+          return <Select.Option key={data.uuid}>{data.name}</Select.Option>;
+        })}
+      </Select>
+      <Table
+        columns={columns}
+        dataSource={exchangesData}
+        style={{ textAlign: "center" }}
+      />
+    </React.Fragment>
+  );
+};
+
+export default Exchanges;
+
+// const App = () => <Table columns={columns} dataSource={data} />;
